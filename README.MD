@@ -2,6 +2,8 @@
 
 This repository contains script files for integrating [LogMeIn Rescue](https://www.logmeinrescue.com/) remote support with [Nexthink Remote Actions](https://docs.nexthink.com/). These scripts enable remote assistance via Rescue channels by automating download and launch of the Rescue applet, usable across Windows and macOS/Linux endpoints.
 
+# Latest Release: 
+Release [v1.0.0](https://github.com/goto-developers/rescue-nexthink-integration/releases/tag/v1.0.0) is published and can be downloaded from the "Release" section.
 
 ## Signature
 
@@ -15,6 +17,11 @@ If your organization prefers to use its own certificate for signing, please foll
 - **Signing Scripts on macOS**  
   For macOS, follow the Nexthink documentation to sign your scripts. This ensures that the remote actions executed on macOS devices can be properly authenticated and authorized.  
   [Learn more in Nexthink documentation »](https://docs.nexthink.com/platform/user-guide/remote-actions/managing-remote-actions/writing-scripts-for-remote-actions-on-mac#signing-the-script)
+
+- **Adding GoTo certificate to the Trusted Publisher store (Windows)**
+Extracting the signing certificate from a signed PowerShell script, exporting it to a .cer file, and importing it into the Trusted Publishers store, Windows will trust scripts signed by this certificate and execute them without warning.  
+ [Learn more](#adding-goto-signed-certificate-to-the-trusted-publisher-store)
+
 
 ## Contents
 
@@ -131,4 +138,35 @@ Downloads and launches the LogMeIn Rescue support applet directly from the speci
 **Usage Example:**
 ```bash
 ./launch_logmein_channel_adhoc.sh 123456 secure.logmeinrescue.com
+```
+
+## Adding GoTo Signed Certificate to the Trusted Publisher store
+
+Follow the below steps to add the cerificate used for signing to the the Trusted Publisher store on Windows
+
+### 1. Extract the Embedded Certificate from the Script
+PowerShell scripts that are digitally signed include a signature block at the end of the file. You can use the Get-AuthenticodeSignature cmdlet to extract the embedded code-signing certificate:
+```powershell 
+$signature = Get-AuthenticodeSignature -FilePath .\launch_logmein_channel_adhoc.ps1
+$cert = $signature.SignerCertificate
+```
+
+### 2. Export the Certificate to a File
+Save the extracted certificate as a .cer (DER or Base64-encoded X.509) file:
+```poweshell
+$cert.Export('Cer') | Set-Content -Encoding byte -Path .\PublisherCert.cer
+```
+
+### 3. Add the Certificate to the Trusted Publishers Store
+Import the certificate into the Trusted Publishers store for the local machine or current user:
+```powershell
+Import-Certificate -FilePath .\PublisherCert.cer -CertStoreLocation Cert:\CurrentUser\TrustedPublisher
+```
+
+### 4. Verification
+You can check that the certificate has been imported by opening the Certificates Management Console (certmgr.msc) or running:
+```powershell
+Get-ChildItem Cert:\CurrentUser\TrustedPublisher
+# or, for Local Machine
+Get-ChildItem Cert:\LocalMachine\TrustedPublisher
 ```
