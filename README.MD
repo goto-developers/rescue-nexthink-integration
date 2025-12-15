@@ -110,7 +110,7 @@ Launches the LogMeIn Rescue Calling Card with the corresponding channel. Require
 **Description:**  
 Downloads and launches the LogMeIn Rescue support applet directly from the specified host site using a channel entry ID, then launches it automatically. The downloaded file is cleaned up after launch.
 
-#### Windwos: launch_logmein_channel_callind_adhoc.ps1
+#### Windows: launch_logmein_channel_callind_adhoc.ps1
 
 
 **Parameters:**  
