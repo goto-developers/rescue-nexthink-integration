@@ -25,19 +25,48 @@ Extracting the signing certificate from a signed PowerShell script, exporting it
 
 ## Contents
 
-- [`Launch LogMeIn Ad-hoc Channel based session`](#launch-logmein-ad-hoc-channel-based-session)  
+- [`Launch LogMeIn Ad-hoc PIN based session`](#launch-logmein-ad-hoc-pin-based-session)  
   *PowerShell script for Windows, Bash script for macOS endpoints.*
 
 - [`Launch LogMeIn Ad-hoc Channel based session`](#launch-logmein-ad-hoc-channel-based-session)  
   *PowerShell script for Windows, Bash script for macOS endpoints.* 
 
-- [`Launch LogMeIn Calling Card Channel based session`](#launch-logmein-calling-card-channel-based-session)  
-   *Bash script for macOS endpoints.*
-
 - [`Launch LogMeIn Calling Card PIN based session`](#launch-logmein-calling-card-pin-based-session)  
   *PowerShell script for Windows, Bash script for macOS endpoints.* 
 
+- [`Launch LogMeIn Calling Card Channel based session`](#launch-logmein-calling-card-channel-based-session)  
+   *PowerShell script for Windows, Bash script for macOS endpoints.*
+
+
 ## Details
+
+### Launch LogMeIn Ad-hoc PIN based session
+
+**Description:**  
+This script downloads the LogMeIn Rescue support applet directly from the specified host site using a PIN code, then launches it automatically. The downloaded file is cleaned up after launch
+
+#### Windows: launch_logmein_channel_PIN_adhoc.ps1
+
+
+**Parameters:**  
+- `pinCode` – The 6 or 9-digit PIN code provided by the support technician..
+- `hostSite` – The LogMeIn Rescue host site (e.g., `secure.logmeinrescue.com`).
+
+**Usage Example:**
+```powershell
+.\launch_logmein_PIN_adhoc.ps1 -pinCode 123456 -hostSite secure.logmeinrescue.com
+```
+
+#### macOS: launch_logmein_channel_callind_adhoc.sh
+
+**Parameters:**  
+- `pinCode` – 6 or 9 digit PIN provided by the support technician
+- `hostSite` – LogMeIn Rescue host site (e.g., `secure.logmeinrescue.com`).
+
+**Usage Example:**
+```bash
+./launch_logmein_PIN_adhoc.sh 123456 secure.logmeinrescue.com
+```
 
 ### Launch LogMeIn Ad-hoc Channel based session
 
@@ -68,12 +97,12 @@ Downloads and launches the LogMeIn Rescue support applet using a channel entry I
 ./launch_logmein_channel_adhoc.sh 123456 secure.logmeinrescue.com
 ```
 
-### Launch LogMeIn Ad-hoc PIN based session
+### Launch LogMeIn Calling Card PIN based session
 
 **Description:**  
 Launches the LogMeIn Rescue Calling Card using the provided PIN code. Requires the Calling Card referral/channel ID to use the installed instance.
 
-#### Windows: launch_logmein_PIN_calling_card-2.ps1
+#### Windows: launch_logmein_PIN_calling_card.ps1
 
 
 **Parameters:**  
@@ -112,33 +141,16 @@ Launches the LogMeIn Rescue Calling Card with the corresponding channel. Require
 .\launch_logmein_channel_calling_card.ps1 -referralId 654321
 ```
 
-### Launch LogMeIn Calling Card PIN based session
-
-**Description:**  
-Downloads and launches the LogMeIn Rescue support applet directly from the specified host site using a channel entry ID, then launches it automatically. The downloaded file is cleaned up after launch.
-
-#### Windows: launch_logmein_channel_callind_adhoc.ps1
-
+#### MacOS: launch_logmein_channel_callind_card.sh
 
 **Parameters:**  
-- `entryId` – The Rescue channel entry ID.
-- `hostSite` – The LogMeIn Rescue host site (e.g., `secure.logmeinrescue.com`).
-
-**Usage Example:**
-```powershell
-.\launch_logmein_channel_adhoc.ps1 -entryId 123456 -hostSite secure.logmeinrescue.com
-```
-
-#### macOS: launch_logmein_channel_callind_adhoc.sh
-
-**Parameters:**  
-- `entryId` – Rescue channel entry ID.
-- `hostSite` – LogMeIn Rescue host site (e.g., `secure.logmeinrescue.com`).
+- `referralId` – The referral ID associated with the Calling Card.
 
 **Usage Example:**
 ```bash
-./launch_logmein_channel_adhoc.sh 123456 secure.logmeinrescue.com
+./launch_logmein_channel_calling_card.sh  654321
 ```
+
 
 ## Adding GoTo Signed Certificate to the Trusted Publisher store
 
