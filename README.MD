@@ -3,7 +3,7 @@
 This repository contains script files for integrating [LogMeIn Rescue](https://www.logmeinrescue.com/) remote support with [Nexthink Remote Actions](https://docs.nexthink.com/). These scripts enable remote assistance via Rescue channels by automating download and launch of the Rescue applet, usable across Windows and macOS/Linux endpoints.
 
 # Latest Release: 
-Release [v1.0.0](https://github.com/goto-developers/rescue-nexthink-integration/releases/tag/v1.0.0) is published and can be downloaded from the "Release" section.
+Release [1.0.0](https://github.com/goto-developers/rescue-nexthink-integration/releases/tag/1.0.0) is published and can be downloaded from the "Release" section.
 
 ## Signature
 
